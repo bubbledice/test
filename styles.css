@@ -1,0 +1,214 @@
+/* Reset untuk margin dan padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Tampilan halaman dan pusatkan bunga */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    flex-direction: column; /* Menata agar teks dan bunga berada di kolom yang sama */
+    text-align: center;
+    overflow: hidden; /* Agar kelopak bunga kecil tidak meluap ke luar layar */
+}
+
+/* Teks di atas bunga */
+.instruction {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333; /* Warna teks */
+    text-align: center;
+}
+
+/* Kontainer bunga utama */
+.flower {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    animation: spin 10s infinite linear;
+    cursor: pointer; /* Menambahkan kursor tangan saat mouse di atas bunga */
+}
+
+/* Petal (kelopak bunga utama) */
+.petal {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #ff69b4; /* Warna kelopak bunga utama */
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.petal-1 {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+}
+
+.petal-2 {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.petal-3 {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+}
+
+.petal-4 {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) rotate(270deg);
+}
+
+/* Center (pusat bunga) */
+.center {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: yellow; /* Warna pusat bunga */
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Animasi putaran bunga */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animasi meledaknya kelopak bunga kecil (lebih halus) */
+@keyframes explode {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.8) translate(var(--x), var(--y));
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(0.5) translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+
+/* Responsif: Menyesuaikan ukuran bunga pada layar kecil */
+@media (max-width: 600px) {
+    .flower {
+        width: 150px;
+        height: 150px;
+    }
+
+    .petal {
+        width: 75px;
+        height: 75px;
+    }
+
+    .center {
+        width: 40px;
+        height: 40px;
+    }
+
+    .instruction {
+        font-size: 16px;
+    }
+}
+
+/* Gaya untuk kelopak bunga kecil yang berhamburan (berwarna ungu) */
+.small-petal {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #800080; /* Warna kelopak bunga anggrek (ungu) */
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 15px 5px #800080; /* Efek cahaya */
+    animation: explode 2s ease-out forwards; /* Memperhalus animasi */
+}
+
+/* Menambahkan animasi untuk kelopak bunga anggrek */
+.small-petal::before,
+.small-petal::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 60px;
+    background-color: #800080; /* Warna kelopak bunga anggrek */
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    animation: petal-spin 2s ease-out forwards; /* Animasi putaran yang lebih halus */
+}
+
+/* Kelopak bagian atas dan bawah */
+.small-petal::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Kelopak bagian kiri dan kanan */
+.small-petal::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Animasi putaran kelopak bunga anggrek */
+@keyframes petal-spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Gaya untuk teks baru dengan font Comic Sans */
+.new-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4caf50; /* Warna hijau */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Menambahkan font Comic Sans */
+    animation: fadeIn 2s ease-out forwards; /* Efek fade-in untuk teks */
+}
+
+/* Animasi fade-in untuk teks baru */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Gaya untuk ikon tap di kanan bawah */
+.tap-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: #ff69b4; /* Warna ikon tap */
+    cursor: pointer; /* Kursor tangan */
+    z-index: 10; /* Agar ikon selalu terlihat di atas elemen lain */
+}

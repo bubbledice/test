@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 1</title>
+
+    <!-- Tambahkan CDN Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Teks yang muncul di atas bunga -->
+    <div class="instruction" id="instruction">
+        Click Bunganya
+    </div>
+
+    <!-- Kontainer bunga utama -->
+    <div class="flower" onclick="explodeFlower()">
+        <div class="petal petal-1"></div>
+        <div class="petal petal-2"></div>
+        <div class="petal petal-3"></div>
+        <div class="petal petal-4"></div>
+        <div class="center"></div>
+    </div>
+
+    <!-- Audio yang akan diputar saat teks muncul -->
+    <audio id="background-audio" preload="auto">
+        <source src="John_Mayer_You're_Gonna_Live_Forever_in_Me.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Ikon "tap" di sebelah kanan bawah -->
+    <div class="tap-icon">
+        <i class="fas fa-hand-pointer"></i> <!-- Ikon tap (hand-pointer) -->
+    </div>
+
+    <script>
+        function explodeFlower() {
+            // Menghilangkan teks "Click Bunganya"
+            document.getElementById('instruction').style.display = 'none';
+
+            // Menghilangkan bunga utama
+            document.querySelector('.flower').style.display = 'none';
+
+            // Membuat kelopak bunga kecil yang berhamburan
+            for (let i = 0; i < 50; i++) { // Membuat 50 kelopak bunga kecil
+                createSmallPetal();
+            }
+
+            // Menampilkan teks baru setelah bunga diklik
+            setTimeout(function() {
+                const newText = document.createElement('div');
+                newText.classList.add('new-text');
+                newText.innerHTML = "Haii, apa kabar? Selamat sudah melalui hari-hari yang terasa berat. Tolong hubungi aku jika butuh apapun yaaa, ingat kamu tidak sendirian. Ada aku kokkk-!!! kak, sebenrnya aku kangen. tapi aku gengsi buat bilang langsung, makannya aku buat web ginian. aku udah sholat istikharah, untuk minta petunjuk tentang perasaan aku. entah kenapa inget nya kita lagi wkwkw, aneh ya. hayoloh apakah aku di pelet?? hahaha.... ini kita gak bisa ngulang dari awal lagi buat benerinnya ya?? :()";
+                document.body.appendChild(newText);
+
+                // Mulai pemutaran audio setelah teks muncul
+                const audio = document.getElementById('background-audio');
+                audio.play();
+            }, 1000); // Teks muncul setelah 1 detik
+        }
+
+        function createSmallPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('small-petal');
+            document.body.appendChild(petal);
+
+            // Posisi acak kelopak bunga kecil di halaman
+            petal.style.left = `${Math.random() * 100}vw`;
+            petal.style.top = `${Math.random() * 100}vh`;
+
+            // Mengatur animasi kelopak bunga kecil
+            petal.style.animation = 'explode 2s ease-out forwards'; // Menggunakan durasi lebih lama dan ease-out
+
+            // Menghapus kelopak bunga kecil setelah animasi selesai
+            setTimeout(() => {
+                petal.remove();
+            }, 2000); // Menghapus setelah 2 detik
+        }
+    </script>
+</body>
+</html>
